@@ -6,7 +6,9 @@ const Settings = styled.div`
   flex: 2;
   padding-top: 10px;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .settings-item {
     font-size: 19px;
   }
