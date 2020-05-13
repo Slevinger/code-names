@@ -2,7 +2,7 @@ import { useState, useReducer, useEffect } from "react";
 import axios from "../apis/codeNameApi";
 import openSocket from "socket.io-client";
 import { PROD_PATH, DEV_PATH } from "../const/config";
-
+import { parseQueryString } from "../const/utils";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
 
@@ -42,8 +42,8 @@ socket.connect();
 const singupForGameChange = (dispatch, nickname) => {
   socket.on("gameChange", game => {
     console.log("game", game);
-    history.push(`/code-names/games/${game.gameId}`);
-    debugger;
+    history.push(`/code-names${game.gameId ? `?gameId=${game.gameId}` : ""}`);
+    console.log(history);
     dispatch({ type: "gameUpdate", payload: { game, nickname } });
   });
 };
@@ -51,9 +51,9 @@ const singupForGameChange = (dispatch, nickname) => {
 const handleError = error => console.log(error);
 
 export default () => {
-  const splitPath = history.location.pathname.split("/");
-  const urlId = splitPath[splitPath.length - 1];
-
+  const { gameId : gameUrlId } = parseQueryString(history.location.search);
+  // const urlId = splitPath[splitPath.length - 1];
+  debugger;
   const [state, dispatch] = useReducer(reducer, { ...initialState });
   const [nickname, setNickname] = useState(null);
 
@@ -65,8 +65,8 @@ export default () => {
       if (urlId != "games" && gameId !== urlId) {
         getGame(urlId);
       }
-    })(urlId, state.gameId);
-  }, [urlId, state.gameId, nickname]);
+    })(gameUrlId, state.gameId);
+  }, [gameUrlId, state.gameId, nickname]);
 
   const createGame = async nickname => {
     setNickname(nickname);
