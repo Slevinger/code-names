@@ -42,7 +42,7 @@ socket.connect();
 const singupForGameChange = (dispatch, nickname) => {
   socket.on("gameChange", game => {
     console.log("game", game);
-    history.push(`/games/${game.gameId}`);
+    history.push(`/code-names/games/${game.gameId}`);
     debugger;
     dispatch({ type: "gameUpdate", payload: { game, nickname } });
   });

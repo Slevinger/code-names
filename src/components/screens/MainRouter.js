@@ -14,7 +14,7 @@ export default () => {
   } = hook;
   useEffect(() => {
     if (gameId) {
-      history.push(`/games/${gameId}`);
+      history.push(`/code-names/games/${gameId}`);
     }
   }, [gameId]);
 
@@ -23,10 +23,10 @@ export default () => {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/games">
+        <Route path="/code-names/games">
           {gameId && nickname ? <Room {...hook} /> : <LoginScreen {...hook} />}
         </Route>
-        <Route path="/">
+        <Route path="/code-names">
           <LoginScreen {...hook} />
         </Route>
       </Switch>
