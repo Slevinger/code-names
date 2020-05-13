@@ -1,7 +1,7 @@
 import { useState, useReducer, useEffect } from "react";
 import axios from "../apis/codeNameApi";
 import openSocket from "socket.io-client";
-import { DEV_PATH } from "../const/config";
+import { PROD_PATH, DEV_PATH } from "../const/config";
 
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
@@ -36,7 +36,7 @@ const reducer = (state, { type, payload }) => {
       return state;
   }
 };
-const socket = openSocket(DEV_PATH);
+const socket = openSocket(PROD_PATH);
 socket.connect();
 
 const singupForGameChange = (dispatch, nickname) => {
