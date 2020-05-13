@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Settings = styled.div`
   text-align: center;
-  flex: 1;
+  flex: 2;
   padding-top: 10px;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 
