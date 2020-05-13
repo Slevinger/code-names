@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-title {
+  position: absolute;
+  flex: 1;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  z-index: -100;
+  font-size: 30px;
+  opacity: 0.3;
+}
+.label {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
