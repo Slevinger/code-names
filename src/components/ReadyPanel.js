@@ -36,7 +36,7 @@ export default ({
 }) => {
   const areAllPlayersReady = useMemo(() => {
     const { players } = game;
-    debugger;
+
     const ready =
       Object.values(players).filter(player => !player.isReady).length === 0;
     return ready;
@@ -44,7 +44,7 @@ export default ({
 
   const isThereHinterForEachTeam = useMemo(() => {
     const { players, teams } = game;
-    debugger;
+
     const teamHinterMap = Object.keys(teams).reduce(
       (acc, teamColor) => ({ ...acc, [teamColor]: false }),
       {}
@@ -68,7 +68,7 @@ export default ({
   }, [game.players]);
 
   const readyToStart = areAllPlayersReady; // && isThereGuesserForEachTeam && isThereHinterForEachTeam;
-  debugger;
+
   // const canPlayerStartGame = useMemo(,[])
   return (
     <Container readyToStart={readyToStart}>

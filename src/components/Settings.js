@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { Button } from "./common/StyledComponents";
 import Chat from "./Chat";
+import TeamScore from "./TeamScore";
 
 const Settings = styled.div`
   text-align: center;
@@ -36,7 +37,7 @@ const Input = ({ onValueChange, value, text, editMode }) => {
 };
 
 export default ({ state, setClue, chooseTeam }) => {
-  const { whosTurn, player, numberOfWords, clue } = state;
+  const { whosTurn, player, numberOfWords, clue, teams } = state;
   const [currentClue, setCurrentClue] = useState("");
   const [noOfWords, setNoOfWords] = useState(0);
   const editMode = useMemo(() => {
@@ -90,14 +91,21 @@ export default ({ state, setClue, chooseTeam }) => {
         />
       )}
       {!numberOfWords && editMode && (
-        <button
+        <Button
           onClick={() => {
             setClue(currentClue, noOfWords);
           }}
         >
           submit
-        </button>
+        </Button>
       )}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {Object.keys(teams).map(teamColor => (
+          <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
+        ))}
+
+
+      </div>
       <Chat nickname={state.nickname} gameId={state.gameId} />
     </Settings>
   );

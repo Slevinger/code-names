@@ -19,7 +19,6 @@ export default ({
   teamColor,
   ...props
 }) => {
-  debugger;
   return (
     <div className="player">
       <FiberManualRecordIcon style={{ color: teamColor }} />

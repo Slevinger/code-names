@@ -68,7 +68,6 @@ export default ({ nickname, gameId }) => {
   useEffect(() => {
     if (!subscribedForMessages) {
       socket.on("message", ({ nickname, message }) => {
-        debugger;
         dispatch({ type: "add_message", payload: { nickname, message } });
         // setMessages([...messages]);
       });

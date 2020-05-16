@@ -44,7 +44,6 @@ export default ({ state, cellSelected }) => {
                 playersCount={teams[state.whosTurn].players.length}
                 teamColor={whosTurn}
                 onClick={() => {
-                  debugger;
                   whosTurn === player.teamColor && cellSelected(key);
                 }}
                 {...board[key]}

@@ -35,12 +35,43 @@ const reducer = (state, { type, payload }) => {
       return state;
   }
 };
+const notifyMe = message => {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
 
-const singupForGameChange = (dispatch, nickname) => {
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification(message);
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function(permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification(message);
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you
+  // want to be respectful there is no need to bother them any more.
+};
+
+const singupForGameChange = (dispatch, state, nickname) => {
   socket.on("gameChange", game => {
     console.log("game", game);
     history.push(`/code-names${game.gameId ? `?gameId=${game.gameId}` : ""}`);
-    console.log(history);
+    debugger;
+    const message =
+      state.whosTurn !== game.whosTurn &&
+      game.whosTurn === game.players[nickname].teamColor
+        ? `Code Names :: It is your Team's turn`
+        : null;
+    message && notifyMe(message);
     dispatch({ type: "gameUpdate", payload: { game, nickname } });
   });
 };
@@ -54,8 +85,8 @@ export default () => {
   const [nickname, setNickname] = useState(null);
 
   useEffect(() => {
-    if (nickname) {
-      singupForGameChange(dispatch, nickname);
+    if (nickname && !state.nickname) {
+      singupForGameChange(dispatch, state, nickname);
     }
     (async (urlId, gameId) => {
       if (urlId != "games" && gameId !== urlId) {
@@ -80,8 +111,8 @@ export default () => {
 
   const setClue = (clue, numberOfWords) => {
     const { gameId } = state;
-    debugger;
-    socket.emit("setClue", {  clue, numberOfWords, gameId });
+
+    socket.emit("setClue", { clue, numberOfWords, gameId });
   };
 
   const togglePlayerReady = nickname => {
