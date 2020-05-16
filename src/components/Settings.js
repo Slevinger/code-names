@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import styled from "styled-components";
+import { Button } from "./common/StyledComponents";
 
 const Settings = styled.div`
   text-align: center;
@@ -42,7 +43,7 @@ const NumberOfWords = ({ player: { isHinter }, numberOfWords }) => {
   );
 };
 
-export default ({ state, setQlue }) => {
+export default ({ state, setQlue, chooseTeam }) => {
   const { whosTurn, player, numberOfWords, qlue } = state;
   const [currentQlue, setCurrentQlue] = useState("");
   const [noOfWords, setNoOfWords] = useState(0);
@@ -57,6 +58,25 @@ export default ({ state, setQlue }) => {
         <div className="settings-item">
           Go <span style={{ color: whosTurn }}>{whosTurn}</span> team
         </div>
+      </div>
+
+      <div>
+        <Button
+          onClick={() => {
+            chooseTeam("red", player.isHinter ? "hinter" : "guesser");
+          }}
+          bgColor={"rgba(244,100,100,0.4)"}
+        >
+          Join Red Team
+        </Button>
+        <Button
+          onClick={() => {
+            chooseTeam("blue", player.isHinter ? "hinter" : "guesser");
+          }}
+          bgColor={"rgba(100,100,244,0.4)"}
+        >
+          Join Blue Team
+        </Button>
       </div>
 
       {player && (
