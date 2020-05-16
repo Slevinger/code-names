@@ -7,8 +7,6 @@ import Settings from "../Settings";
 import Chat from "../Chat";
 
 const StyleRoom = styled.div`
-  height: 100%;
-  width: 100%;
   display: flex;
   background-color: ${({ teamColor }) =>
     teamColor && teamColor === "red"

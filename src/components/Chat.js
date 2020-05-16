@@ -1,4 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useReducer
+} from "react";
 import { socket } from "../services/socket";
 import styled from "styled-components";
 
@@ -6,7 +13,7 @@ const Chat = styled.div`
   width: 80%;
   max-height: 300px;
   height: 300px;
-  overflow-y: auto;
+  overflow-y: hidden;
   margin: 10px;
   border-style: inset;
   display: flex;
@@ -15,6 +22,7 @@ const Chat = styled.div`
 
   .messages {
     flex: 1;
+    overflow-y: scroll;
   }
   input {
     flex: 1;
@@ -39,14 +47,40 @@ const Message = styled.div`
   padding: 5px;
 `;
 
+const messages = [];
+
+const messagesReducer = (state, { type, payload }) => {
+  switch (type) {
+    case "add_message":
+      const { nickname, message } = payload;
+      return [...state, { nickname, message }];
+    default:
+      return state;
+  }
+};
+
 export default ({ nickname, gameId }) => {
+  const [messages, dispatch] = useReducer(messagesReducer, []);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [subscribedForMessages, setSubscribedForMessages] = useState(false);
+  const bottomRef = useRef(null);
+
   useEffect(() => {
-    socket.on("message", ({ nickname, message }) => {
-      debugger;
-      setMessages([...messages, { nickname, message }]);
-    });
+    if (!subscribedForMessages) {
+      socket.on("message", ({ nickname, message }) => {
+        debugger;
+        dispatch({ type: "add_message", payload: { nickname, message } });
+        // setMessages([...messages]);
+      });
+      setSubscribedForMessages(true);
+    }
+  }, [dispatch, messages]);
+
+  const scrollToBottom = () => {
+    bottomRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
   }, [messages]);
 
   const sendMessage = useCallback(
@@ -72,20 +106,23 @@ export default ({ nickname, gameId }) => {
             key={nickname + message}
           >{`${nickname} : ${message}`}</Message>
         ))}
+        <div ref={bottomRef} />
       </div>
-      <form className="messages-text">
-        <input
-          value={message}
-          type="text"
-          onChange={e => {
-            e.target.focus();
-            setMessage(e.target.value);
-          }}
-        />
-        <button onClick={sendMessage} class="send-btn">
-          SEND
-        </button>
-      </form>
+      <div>
+        <form className="messages-text">
+          <input
+            value={message}
+            type="text"
+            onChange={e => {
+              e.target.focus();
+              setMessage(e.target.value);
+            }}
+          />
+          <button onClick={sendMessage} class="send-btn">
+            SEND
+          </button>
+        </form>
+      </div>
     </Chat>
   );
 };
