@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 const StyledCard = styled.div`
   background-color: ${({ showColor, color }) =>
     showColor ? color : "rgba(0,0,0,0.2)"};
-  width: 18%;
+  width: 17%;
   height: 80px;
   border-radius: 14px;
   border: solid thin;

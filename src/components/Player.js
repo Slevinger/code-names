@@ -1,6 +1,6 @@
 import React from "react";
 import DoneIcon from "@material-ui/icons/Done";
-
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 /*
 props = > {
  "nickname": "slevinger",
@@ -11,10 +11,18 @@ props = > {
 }
 */
 
-export default ({ board, nickname, isReady, selectedCell, ...props }) => {
+export default ({
+  board,
+  nickname,
+  isReady,
+  selectedCell,
+  teamColor,
+  ...props
+}) => {
   debugger;
   return (
     <div className="player">
+      <FiberManualRecordIcon style={{ color: teamColor }} />
       <div className="player-name">{nickname}</div>
       <div className="player-name">{`${
         board[selectedCell] ? `[${board[selectedCell].word}]` : ""

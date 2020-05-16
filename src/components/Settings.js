@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import { Button } from "./common/StyledComponents";
+import Chat from "./Chat";
 
 const Settings = styled.div`
   text-align: center;
@@ -13,7 +14,7 @@ const Settings = styled.div`
   .settings-item {
     font-size: 19px;
   }
-  .qlue {
+  .clue {
     padding: 5px;
     font-size: 18px;
   }
@@ -26,26 +27,17 @@ const Input = ({ onValueChange, value, text, editMode }) => {
         onValueChange(e.currentTarget.value);
       }}
       type="text"
-      className="qlue"
-      placeholder="Qlue"
+      className="clue"
+      placeholder="Clue"
     />
   ) : (
     <h2>{text}</h2>
   );
 };
 
-const NumberOfWords = ({ player: { isHinter }, numberOfWords }) => {
-  debugger;
-  return isHinter && !numberOfWords ? (
-    <input type="text" className="qlue" placeholder="Word Count" />
-  ) : (
-    <h2>{numberOfWords}</h2>
-  );
-};
-
-export default ({ state, setQlue, chooseTeam }) => {
-  const { whosTurn, player, numberOfWords, qlue } = state;
-  const [currentQlue, setCurrentQlue] = useState("");
+export default ({ state, setClue, chooseTeam }) => {
+  const { whosTurn, player, numberOfWords, clue } = state;
+  const [currentClue, setCurrentClue] = useState("");
   const [noOfWords, setNoOfWords] = useState(0);
   const editMode = useMemo(() => {
     if (player && player.teamColor) {
@@ -82,9 +74,9 @@ export default ({ state, setQlue, chooseTeam }) => {
       {player && (
         <Input
           editMode={editMode}
-          text={qlue}
-          value={currentQlue}
-          onValueChange={setCurrentQlue}
+          text={clue}
+          value={currentClue}
+          onValueChange={setCurrentClue}
           {...state}
         />
       )}
@@ -100,12 +92,13 @@ export default ({ state, setQlue, chooseTeam }) => {
       {!numberOfWords && editMode && (
         <button
           onClick={() => {
-            setQlue(currentQlue, noOfWords);
+            setClue(currentClue, noOfWords);
           }}
         >
           submit
         </button>
       )}
+      <Chat nickname={state.nickname} gameId={state.gameId} />
     </Settings>
   );
 };

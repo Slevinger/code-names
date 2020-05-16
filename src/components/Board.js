@@ -4,7 +4,7 @@ import Card from "./Card";
 
 const Board = styled.div`
   display: block;
-  width: 1200px;
+  width: 900px;
   height: 550px;
   flex-wrap: wrap;
   flex-direction: row;

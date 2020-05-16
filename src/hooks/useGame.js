@@ -78,10 +78,10 @@ export default () => {
     dispatch({ type: "setGame", payload: { game } });
   };
 
-  const setQlue = (qlue, numberOfWords) => {
+  const setClue = (clue, numberOfWords) => {
     const { gameId } = state;
     debugger;
-    socket.emit("setQlue", { qlue, numberOfWords, gameId });
+    socket.emit("setClue", {  clue, numberOfWords, gameId });
   };
 
   const togglePlayerReady = nickname => {
@@ -118,7 +118,7 @@ export default () => {
   };
 
   const actions = {
-    setQlue,
+    setClue,
     getGame,
     joinGame,
     chooseTeam,

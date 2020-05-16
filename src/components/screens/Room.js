@@ -8,6 +8,7 @@ import Chat from "../Chat";
 
 const StyleRoom = styled.div`
   display: flex;
+  height: 100vh;
   background-color: ${({ teamColor }) =>
     teamColor && teamColor === "red"
       ? "rgba(200,0,0,0.2)"
@@ -26,7 +27,7 @@ const StyleRoom = styled.div`
       flex-direction: row;
       display: flex;
       padding-top: 10px;
-      .qlue {
+      .clue {
         padding: 5px;
         font-size: 18px;
       }
@@ -43,7 +44,6 @@ export default hook => {
       <PlayersList players={Object.values(players)} board={board} />
       <div className="room-content">
         {board ? <Board {...hook} /> : <TeamsContainer {...hook} />}
-        <Chat nickname={hook.state.nickname} gameId={hook.state.gameId} />
       </div>
       <Settings {...hook} />
     </StyleRoom>

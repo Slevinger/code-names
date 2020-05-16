@@ -14,6 +14,8 @@ const PlayersList = styled.div`
   }
   .player-name {
     flex: 1;
+    margin-left: 10px;
+    line-height: 24px;
   }
   h1 {
     text-align: center;
