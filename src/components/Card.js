@@ -1,0 +1,75 @@
+import React from "react";
+import styled, { css } from "styled-components";
+
+const StyledCard = styled.div`
+  background-color: ${({ showColor, color }) =>
+    showColor ? color : "rgba(0,0,0,0.2)"};
+  width: 18%;
+  height: 80px;
+  border-radius: 14px;
+  border: solid thin;
+  flex-direction: column;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${({ disabled }) => {
+    return (
+      disabled &&
+      css`
+        pointer-events: hover;
+      `
+    );
+  }}
+  &:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+  }
+`;
+
+const ColorBox = styled.div`
+  position: relative;
+  width: 60%;
+  height: 25px;
+  background-color: white;
+  border: 1px solid;
+  .word {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+`;
+
+const ProgressBar = styled.div`
+  position: relative;
+  height: 100%;
+  ${({ teamColor, flipTeam, clickCount, playersCount }) => {
+    let backgroundColor = "white";
+    let pcnt = 100;
+    if (flipTeam) {
+      backgroundColor = flipTeam;
+    } else {
+      if (clickCount > 0) {
+        backgroundColor = teamColor;
+        pcnt = Math.round((clickCount / playersCount) * 100);
+      }
+    }
+    return css`
+      background-color: ${backgroundColor};
+      width: ${pcnt}%;
+    `;
+  }}
+`;
+
+export default ({ indexes, onClick, teamColor, word, ...card }) => {
+  return (
+    <StyledCard key={indexes} {...card} onClick={onClick}>
+      <ColorBox {...card}>
+        <div className={"word"}>{word}</div>
+        <ProgressBar teamColor={teamColor} {...card} />
+      </ColorBox>
+    </StyledCard>
+  );
+};

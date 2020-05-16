@@ -67,8 +67,7 @@ export default ({
     }, true);
   }, [game.players]);
 
-  const readyToStart =
-    areAllPlayersReady && isThereGuesserForEachTeam && isThereHinterForEachTeam;
+  const readyToStart = areAllPlayersReady; // && isThereGuesserForEachTeam && isThereHinterForEachTeam;
   debugger;
   // const canPlayerStartGame = useMemo(,[])
   return (

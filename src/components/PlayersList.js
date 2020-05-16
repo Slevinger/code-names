@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import DoneIcon from "@material-ui/icons/Done";
+import Player from "./Player";
 
 const PlayersList = styled.div`
   flex: 1;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  max-width: 300px;
   .player {
     flex-direction: row;
     display: flex;
@@ -19,19 +20,12 @@ const PlayersList = styled.div`
   }
 `;
 
-const Player = ({ nickname, isReady, ...props }) => (
-  <div className="player">
-    <div className="player-name">{nickname}</div>
-    {isReady && <DoneIcon style={{ color: "green" }} />}
-  </div>
-);
-
-export default ({ players }) => {
+export default ({ players, board = {} }) => {
   return (
     <PlayersList>
       <h1>Players</h1>
       {players.map(player => (
-        <Player {...player} />
+        <Player {...player} board={board} />
       ))}
     </PlayersList>
   );

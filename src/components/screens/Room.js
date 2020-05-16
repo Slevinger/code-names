@@ -4,9 +4,9 @@ import PlayersList from "../PlayersList";
 import TeamsContainer from "../TeamContainer";
 import Board from "../Board";
 import Settings from "../Settings";
+import Chat from "../Chat";
 
 const StyleRoom = styled.div`
-  position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
@@ -42,8 +42,11 @@ export default hook => {
 
   return (
     <StyleRoom {...player}>
-      <PlayersList players={Object.values(players)} />
-      {board ? <Board {...hook} /> : <TeamsContainer {...hook} />}
+      <PlayersList players={Object.values(players)} board={board} />
+      <div className="room-content">
+        {board ? <Board {...hook} /> : <TeamsContainer {...hook} />}
+        <Chat nickname={hook.state.nickname} gameId={hook.state.gameId} />
+      </div>
       <Settings {...hook} />
     </StyleRoom>
   );

@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import styled, { css } from "styled-components";
+import Card from "./Card";
 
 const Board = styled.div`
   display: block;
@@ -10,79 +11,6 @@ const Board = styled.div`
   display: flex;
   justify-content: center;
 `;
-
-const StyledCard = styled.div`
-  background-color: ${({ showColor, color }) =>
-    showColor ? color : "rgba(0,0,0,0.2)"};
-  width: 200px;
-  height: 100px;
-  border-radius: 14px;
-  border: solid thin;
-  flex-direction: column;
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${({ disabled }) => {
-    return (
-      disabled &&
-      css`
-        pointer-events: hover;
-      `
-    );
-  }}
-  &:hover {
-    cursor: pointer;
-    background-color: lightgrey;
-  }
-`;
-
-const ColorBox = styled.div`
-  position: relative;
-  width: 60%;
-  height: 25px;
-  background-color: white;
-  border: 1px solid;
-  .word {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-  }
-`;
-
-const ProgressBar = styled.div`
-  position: relative;
-  height: 100%;
-  ${({ teamColor, flipTeam, clickCount, playersCount }) => {
-    let backgroundColor = "white";
-    let pcnt = 100;
-    if (flipTeam) {
-      backgroundColor = flipTeam;
-    } else {
-      if (clickCount > 0) {
-        backgroundColor = teamColor;
-        pcnt = Math.round((clickCount / playersCount) * 100);
-      }
-    }
-    return css`
-      background-color: ${backgroundColor};
-      width: ${pcnt}%;
-    `;
-  }}
-`;
-
-const Card = ({ indexes, onClick, teamColor, ...card }) => {
-  return (
-    <StyledCard key={indexes} {...card} onClick={onClick}>
-      <ColorBox {...card}>
-        <div className={"word"}>{card.word}</div>
-        <ProgressBar teamColor={teamColor} {...card} />
-      </ColorBox>
-    </StyledCard>
-  );
-};
 
 export default ({ state, cellSelected }) => {
   const { board, whosTurn, teams, players, numberOfWords, player } = state;

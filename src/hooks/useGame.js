@@ -1,7 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import axios from "../apis/codeNameApi";
-import openSocket from "socket.io-client";
-import { PROD_PATH, DEV_PATH } from "../const/config";
+import { socket } from "../services/socket";
 import { parseQueryString } from "../const/utils";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
@@ -36,8 +35,6 @@ const reducer = (state, { type, payload }) => {
       return state;
   }
 };
-const socket = openSocket(PROD_PATH);
-socket.connect();
 
 const singupForGameChange = (dispatch, nickname) => {
   socket.on("gameChange", game => {
@@ -51,9 +48,8 @@ const singupForGameChange = (dispatch, nickname) => {
 const handleError = error => console.log(error);
 
 export default () => {
-  const { gameId : gameUrlId } = parseQueryString(history.location.search);
+  const { gameId: gameUrlId } = parseQueryString(history.location.search);
   // const urlId = splitPath[splitPath.length - 1];
-  debugger;
   const [state, dispatch] = useReducer(reducer, { ...initialState });
   const [nickname, setNickname] = useState(null);
 

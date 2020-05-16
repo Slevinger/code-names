@@ -72,7 +72,7 @@ export default ({
     [players]
   );
   return (
-    <div className="room-content">
+    <>
       <StyeldTeamsContainer>
         <div className="blue-team">
           <div
@@ -129,13 +129,6 @@ export default ({
         toggleReady={togglePlayerReady}
         startGame={startGame}
       />
-      <button
-        onClick={() => {
-          leaveGame(state.gameId);
-        }}
-      >
-        logout
-      </button>
-    </div>
+    </>
   );
 };
