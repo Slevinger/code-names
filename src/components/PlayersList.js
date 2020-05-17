@@ -5,7 +5,10 @@ import Player from "./Player";
 const PlayersList = styled.div`
   flex: 1;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
-  max-width: 300px;
+  width: 100%;
+  @media (min-width: 480px) {
+    max-width: 300px;
+  }
   .player {
     flex-direction: row;
     display: flex;

@@ -7,8 +7,13 @@ import Settings from "../Settings";
 import Chat from "../Chat";
 
 const StyleRoom = styled.div`
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+
   display: flex;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: ${({ teamColor }) =>
     teamColor && teamColor === "red"
       ? "rgba(200,0,0,0.2)"

@@ -9,10 +9,15 @@ const StyledCard = styled.div`
   border-radius: 14px;
   border: solid thin;
   flex-direction: column;
+  font-size: 2vw;
   margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 480px) {
+    font-size: 3vw;
+  }
   ${({ disabled }) => {
     return (
       disabled &&
@@ -29,7 +34,7 @@ const StyledCard = styled.div`
 
 const ColorBox = styled.div`
   position: relative;
-  width: 60%;
+  width: 80%;
   height: 25px;
   background-color: white;
   border: 1px solid;
