@@ -9,13 +9,13 @@ const StyledCard = styled.div`
   border-radius: 14px;
   border: solid thin;
   flex-direction: column;
-  font-size: 2vw;
+  font-size: 1vw;
   margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 720px) {
     font-size: 3vw;
   }
   ${({ disabled }) => {
