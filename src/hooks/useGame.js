@@ -66,12 +66,12 @@ const singupForGameChange = (dispatch, state, nickname) => {
     console.log("game", game);
     history.push(`/code-names${game.gameId ? `?gameId=${game.gameId}` : ""}`);
 
-    const message =
-      state.whosTurn !== game.whosTurn &&
-      game.whosTurn === game.players[nickname].teamColor
-        ? `Code Names :: It is your Team's turn`
-        : null;
-    message && notifyMe(message);
+    // const message =
+    //   state.whosTurn !== game.whosTurn &&
+    //   game.whosTurn === game.players[nickname].teamColor
+    //     ? `Code Names :: It is your Team's turn`
+    //     : null;
+    // message && notifyMe(message);
     dispatch({ type: "gameUpdate", payload: { game, nickname } });
   });
 };
