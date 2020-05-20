@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Dialog from "../Dialog";
+import { Button } from "../common/StyledComponents";
 
 export default ({
   joinGame,
@@ -21,20 +22,20 @@ export default ({
           }}
         />
         <div className="select-method-buttons">
-          <button
+          <Button
             onClick={() => {
               nickname && createGame(nickname);
             }}
           >
             CREATE
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => {
               nickname && joinGame(gameId, nickname);
             }}
           >
             JOIN
-          </button>
+          </Button>
         </div>
       </div>
     </Dialog>

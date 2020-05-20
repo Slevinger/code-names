@@ -15,12 +15,14 @@ const Settings = styled.div`
   .settings-item {
     font-size: 19px;
   }
-  .clue {
+
+  input {
     padding: 5px;
     font-size: 18px;
+    margin: 5px;
   }
 `;
-const Input = ({ onValueChange, value, text, editMode }) => {
+const Input = ({ onValueChange, value, text, editMode, placeholder }) => {
   return editMode ? (
     <input
       value={value}
@@ -28,18 +30,17 @@ const Input = ({ onValueChange, value, text, editMode }) => {
         onValueChange(e.currentTarget.value);
       }}
       type="text"
-      className="clue"
-      placeholder="Clue"
+      placeholder={placeholder}
     />
   ) : (
     <h2>{text}</h2>
   );
 };
 
-export default ({ state, setClue, chooseTeam }) => {
+export default ({ state, setClue, chooseTeam, leaveGame }) => {
   const { whosTurn, player, numberOfWords, clue, teams } = state;
   const [currentClue, setCurrentClue] = useState("");
-  const [noOfWords, setNoOfWords] = useState(0);
+  const [noOfWords, setNoOfWords] = useState("");
   const editMode = useMemo(() => {
     if (player && player.teamColor) {
       return player.isHinter && whosTurn === player.teamColor && !numberOfWords;
@@ -78,6 +79,7 @@ export default ({ state, setClue, chooseTeam }) => {
           text={clue}
           value={currentClue}
           onValueChange={setCurrentClue}
+          placeholder={"Clue"}
           {...state}
         />
       )}
@@ -87,6 +89,7 @@ export default ({ state, setClue, chooseTeam }) => {
           text={numberOfWords}
           value={noOfWords}
           onValueChange={setNoOfWords}
+          placeholder={"No Of Words"}
           {...state}
         />
       )}
@@ -94,6 +97,8 @@ export default ({ state, setClue, chooseTeam }) => {
         <Button
           onClick={() => {
             setClue(currentClue, noOfWords);
+            setCurrentClue("");
+            setNoOfWords("");
           }}
         >
           submit
@@ -103,10 +108,15 @@ export default ({ state, setClue, chooseTeam }) => {
         {Object.keys(teams).map(teamColor => (
           <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
         ))}
-
-
       </div>
       <Chat nickname={state.nickname} gameId={state.gameId} />
+      <Button
+        onClick={() => {
+          leaveGame();
+        }}
+      >
+        logout
+      </Button>
     </Settings>
   );
 };

@@ -42,9 +42,12 @@ const Chat = styled.div`
     padding: 5px;
   }
 `;
+const english = /^[A-Za-z0-9 ]*$/;
 
 const Message = styled.div`
   padding: 5px;
+
+  text-align: ${({ nickname }) => (english.test(nickname) ? "left" : "right")};
 `;
 
 const messages = [];
@@ -102,6 +105,7 @@ export default ({ nickname, gameId }) => {
       <div className="messages">
         {messages.map(({ nickname, message }) => (
           <Message
+            nickname={nickname}
             key={nickname + message}
           >{`${nickname} : ${message}`}</Message>
         ))}

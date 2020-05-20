@@ -18,10 +18,5 @@ export default styled.div`
   .select-method-buttons {
     justify-content: space-around;
     display: flex;
-    button {
-      font-size: 20px;
-      padding: 4px;
-      margin-top: 5px;
-    }
   }
 `;

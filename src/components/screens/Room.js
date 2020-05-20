@@ -32,10 +32,6 @@ const StyleRoom = styled.div`
       flex-direction: row;
       display: flex;
       padding-top: 10px;
-      .clue {
-        padding: 5px;
-        font-size: 18px;
-      }
     }
   }
 `;

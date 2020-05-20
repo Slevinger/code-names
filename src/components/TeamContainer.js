@@ -43,13 +43,7 @@ const BgTitle = ({ title, ...props }) => {
   return <div className="bg-title">{title}</div>;
 };
 
-export default ({
-  chooseTeam,
-  state,
-  togglePlayerReady,
-  startGame,
-  leaveGame
-}) => {
+export default ({ chooseTeam, state, togglePlayerReady, startGame }) => {
   const { players, nickname } = state;
   const currentPlayer = players[nickname];
 

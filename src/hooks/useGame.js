@@ -111,6 +111,7 @@ export default () => {
 
   const setClue = (clue, numberOfWords) => {
     const { gameId } = state;
+    debugger;
 
     socket.emit("setClue", { clue, numberOfWords, gameId });
   };

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import styled, { css } from "styled-components";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { DEFAULT_ECDH_CURVE } from "tls";
+import { Button } from "./common/StyledComponents";
 
 const Container = styled.div`
   width: 200px;
@@ -17,12 +17,9 @@ const Container = styled.div`
   button {
     padding: 10px;
     font-size: 20px;
-    ${({ readyToStart }) =>
-      !readyToStart &&
-      css`
-        opacity: 0.7;
-        pointer-events: none;
-      `};
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -71,7 +68,7 @@ export default ({
 
   // const canPlayerStartGame = useMemo(,[])
   return (
-    <Container readyToStart={readyToStart}>
+    <Container>
       <FormControlLabel
         control={
           <Switch
@@ -85,14 +82,17 @@ export default ({
         label="Ready"
       />
       {
-        <button
+        <Button
+          disabled={!readyToStart}
           onClick={() => {
-            console.log("start game");
-            startGame && startGame();
+            if (readyToStart) {
+              console.log("start game");
+              startGame && startGame();
+            }
           }}
         >
           start
-        </button>
+        </Button>
       }
     </Container>
   );

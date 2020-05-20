@@ -1,5 +1,5 @@
 import openSocket from "socket.io-client";
-import { PROD_PATH, DEV_PATH } from "../const/config";
+import { url } from "../const/config";
 
-export const socket = openSocket(PROD_PATH);
+export const socket = openSocket(url);
 socket.connect();

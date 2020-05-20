@@ -15,6 +15,12 @@ export const Button = styled.div`
   font-weight: 700;
   border-radius: 7px;
   box-shadow: 1px 2px 5px black;
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.7;
+      pointer-events: none;
+    `};
   ${({ style }) =>
     css`
       ${style}
