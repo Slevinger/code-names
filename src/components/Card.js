@@ -2,8 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const StyledCard = styled.div`
-  background-color: ${({ showColor, color }) =>
-    showColor ? color : "rgba(0,0,0,0.2)"};
+  background-color: ${({ showColor, color }) => {
+    return showColor ? color : "rgba(0,0,0,0.2)";
+  }};
   width: 17%;
   height: 80px;
   border-radius: 14px;
@@ -22,6 +23,8 @@ const StyledCard = styled.div`
     return (
       disabled &&
       css`
+        opacity: 0.5;
+
         pointer-events: hover;
       `
     );
@@ -41,6 +44,7 @@ const ColorBox = styled.div`
   .word {
     position: absolute;
     z-index: 1;
+    font-weight: 600;
     height: 100%;
     width: 100%;
     text-align: center;
