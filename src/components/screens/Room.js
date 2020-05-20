@@ -12,7 +12,7 @@ const StyleRoom = styled.div`
   }
 
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   background-color: ${({ teamColor }) =>
     teamColor && teamColor === "red"
