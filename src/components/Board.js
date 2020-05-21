@@ -26,7 +26,10 @@ export default ({ state, cellSelected }) => {
   if (!player || !player.nickname) {
     return null;
   }
-  const myTeamsTurn = whosTurn === player.teamColor;
+  const myTeamsTurn = useMemo(() => whosTurn === player.teamColor, [
+    whosTurn,
+    player.teamColor
+  ]);
   const countSelectedCells = teams[state.whosTurn].players
     .filter(nick => players[nick])
     .map(nick => players[nick].selectedCell)
@@ -49,11 +52,12 @@ export default ({ state, cellSelected }) => {
             return (
               <Card
                 indexes={key}
-                disabled={!numberOfWords || !myTeamsTurn || !clue}
+                disabled={
+                  !numberOfWords || !myTeamsTurn || !clue || player.isHinter
+                }
                 clickCount={countSelectedCells[key] || 0}
                 playersCount={teams[state.whosTurn].players.length}
                 teamColor={whosTurn}
-                disabled={player.teamColor !== whosTurn || player.isHinter}
                 onClick={() => {
                   whosTurn === player.teamColor && cellSelected(key);
                 }}
