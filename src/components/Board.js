@@ -39,7 +39,7 @@ export default ({ state, cellSelected }) => {
     );
 
   return (
-    <div className="room-content">
+    <div>
       {Object.keys(state.players).length > 0 && (
         <Board>
           {Object.keys(board).map(key => {
