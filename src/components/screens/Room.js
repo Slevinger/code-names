@@ -15,17 +15,18 @@ const StyleRoom = styled.div`
 
   display: flex;
   width: 100%;
-  background-color: ${({ teamColor }) =>
-    teamColor && teamColor === "red"
-      ? "rgba(200,0,0,0.2)"
-      : teamColor && teamColor === "blue"
-      ? "rgba(0,0,200,0.2)"
-      : "none"};
+
   .room-content {
     align-items: center;
     flex: 5;
     display: flex;
     flex-direction: column;
+    background-color: ${({ teamColor }) =>
+      teamColor && teamColor === "red"
+        ? "rgba(200,0,0,0.2)"
+        : teamColor && teamColor === "blue"
+        ? "rgba(0,0,200,0.2)"
+        : "none"};
     .game-title {
       font-size: 29px;
       width: 100%;
