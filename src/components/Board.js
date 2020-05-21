@@ -44,6 +44,7 @@ export default ({ state, cellSelected }) => {
                 clickCount={countSelectedCells[key] || 0}
                 playersCount={teams[state.whosTurn].players.length}
                 teamColor={whosTurn}
+                disabled={player.teamColor !== whosTurn || player.isHinter}
                 onClick={() => {
                   whosTurn === player.teamColor && cellSelected(key);
                 }}

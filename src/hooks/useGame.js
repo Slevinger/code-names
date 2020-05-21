@@ -82,17 +82,20 @@ export default () => {
   const { gameId: gameUrlId } = parseQueryString(history.location.search);
   // const urlId = splitPath[splitPath.length - 1];
   const [state, dispatch] = useReducer(reducer, { ...initialState });
-  const [nickname, setNickname] = useState(null);
+  const [nickname, setNickname] = useState(
+    window.localStorage.getItem(gameUrlId)
+  );
 
   useEffect(() => {
     if (nickname && !state.nickname) {
       singupForGameChange(dispatch, state, nickname);
+      window.localStorage.setItem(gameUrlId, nickname);
+      (async (urlId, gameId) => {
+        if (urlId != "games" && gameId !== urlId) {
+          joinGame(urlId, nickname);
+        }
+      })(gameUrlId, state.gameId);
     }
-    (async (urlId, gameId) => {
-      if (urlId != "games" && gameId !== urlId) {
-        getGame(urlId);
-      }
-    })(gameUrlId, state.gameId);
   }, [gameUrlId, state.gameId, nickname]);
 
   const createGame = async nickname => {

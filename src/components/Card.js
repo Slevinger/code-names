@@ -25,7 +25,7 @@ const StyledCard = styled.div`
       css`
         opacity: 0.5;
 
-        pointer-events: hover;
+        pointer-events: none;
       `
     );
   }}
@@ -72,9 +72,9 @@ const ProgressBar = styled.div`
   }}
 `;
 
-export default ({ indexes, onClick, teamColor, word, ...card }) => {
+export default ({ indexes, onClick, teamColor, word, disabled, ...card }) => {
   return (
-    <StyledCard key={indexes} {...card} onClick={onClick}>
+    <StyledCard key={indexes} {...card} disabled={disabled} onClick={onClick}>
       <ColorBox {...card}>
         <div className={"word"}>{word}</div>
         <ProgressBar teamColor={teamColor} {...card} />
