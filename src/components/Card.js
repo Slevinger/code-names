@@ -48,6 +48,7 @@ const ColorBox = styled.div`
     height: 100%;
     width: 100%;
     text-align: center;
+    opacity: 1 !important;
   }
 `;
 

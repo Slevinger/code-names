@@ -38,7 +38,7 @@ const Input = ({ onValueChange, value, text, editMode, placeholder }) => {
   );
 };
 
-export default ({ state, setClue, chooseTeam, leaveGame }) => {
+export default ({ state, setClue, chooseTeam, leaveGame, restartBoard }) => {
   const { whosTurn, player, numberOfWords, clue, teams, board } = state;
   const [currentClue, setCurrentClue] = useState("");
   const [noOfWords, setNoOfWords] = useState("");
@@ -113,6 +113,14 @@ export default ({ state, setClue, chooseTeam, leaveGame }) => {
         </div>
       )}
       <Chat nickname={state.nickname} gameId={state.gameId} />
+      <Button
+        onClick={() => {
+          debugger;
+          restartBoard(state.gameId);
+        }}
+      >
+        restart
+      </Button>
       <Button
         onClick={() => {
           leaveGame();

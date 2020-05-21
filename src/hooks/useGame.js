@@ -63,6 +63,7 @@ const notifyMe = message => {
 
 const singupForGameChange = (dispatch, state, nickname) => {
   socket.on("gameChange", game => {
+    debugger;
     console.log("game", game);
     history.push(`/code-names${game.gameId ? `?gameId=${game.gameId}` : ""}`);
 
@@ -98,9 +99,14 @@ export default () => {
     }
   }, [gameUrlId, state.gameId, nickname]);
 
-  const createGame = async nickname => {
+  const createGame = async (nickname, gameId) => {
     setNickname(nickname);
-    socket.emit("createGame", { nickname }, handleError);
+    socket.emit("createGame", { nickname, gameId }, handleError);
+  };
+
+  const restartBoard = () => {
+    const { gameId } = state;
+    socket.emit("newBoard", { gameId });
   };
 
   const startGame = () => {
@@ -153,6 +159,7 @@ export default () => {
   };
 
   const actions = {
+    restartBoard,
     setClue,
     getGame,
     joinGame,
