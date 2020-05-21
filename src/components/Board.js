@@ -14,7 +14,15 @@ const Board = styled.div`
 `;
 
 export default ({ state, cellSelected }) => {
-  const { board, whosTurn, teams, players, numberOfWords, player } = state;
+  const {
+    board,
+    whosTurn,
+    teams,
+    players,
+    numberOfWords,
+    player,
+    clue
+  } = state;
   if (!player || !player.nickname) {
     return null;
   }
@@ -37,10 +45,11 @@ export default ({ state, cellSelected }) => {
           {Object.keys(board).map(key => {
             const player = state.players[state.nickname];
             const showColor = player.isHinter || board[key].showColor;
+            console.log("clue", clue);
             return (
               <Card
                 indexes={key}
-                disabled={!numberOfWords && !myTeamsTurn}
+                disabled={!numberOfWords || !myTeamsTurn || !clue}
                 clickCount={countSelectedCells[key] || 0}
                 playersCount={teams[state.whosTurn].players.length}
                 teamColor={whosTurn}
