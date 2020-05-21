@@ -4,7 +4,7 @@ import PlayersList from "../PlayersList";
 import TeamsContainer from "../TeamContainer";
 import Board from "../Board";
 import Settings from "../Settings";
-import Chat from "../Chat";
+import values from "lodash/values";
 
 const StyleRoom = styled.div`
   height: 100vh;
@@ -44,7 +44,7 @@ export default hook => {
 
   return (
     <StyleRoom {...player}>
-      <PlayersList players={Object.values(players)} board={board} />
+      <PlayersList players={values(players)} board={board} />
       <div className="room-content">
         {board ? <Board {...hook} /> : <TeamsContainer {...hook} />}
       </div>

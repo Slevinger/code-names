@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer, useEffect, useCallback } from "react";
 import axios from "../apis/codeNameApi";
 import { socket } from "../services/socket";
 import { parseQueryString } from "../const/utils";
@@ -135,6 +135,12 @@ export default () => {
     socket.emit("chooseTeam", { gameId, nickname, teamColor, role });
   };
 
+  const switchTeam = useCallback(() => {
+    const { gameId } = state;
+    debugger;
+    socket.emit("switchTeam", { gameId, nickname });
+  }, [nickname, state.gameId]);
+
   const leaveGame = () => {
     setNickname("");
     socket.disconnect();
@@ -159,6 +165,7 @@ export default () => {
   };
 
   const actions = {
+    switchTeam,
     restartBoard,
     setClue,
     getGame,

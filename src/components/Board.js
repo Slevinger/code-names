@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import styled, { css } from "styled-components";
+import { Button } from "./common/StyledComponents";
 import Card from "./Card";
 
 const Board = styled.div`
@@ -13,7 +14,7 @@ const Board = styled.div`
   justify-content: center;
 `;
 
-export default ({ state, cellSelected }) => {
+export default ({ state, cellSelected, switchTeam }) => {
   const {
     board,
     whosTurn,
@@ -42,7 +43,7 @@ export default ({ state, cellSelected }) => {
     );
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       {Object.keys(state.players).length > 0 && (
         <Board>
           {Object.keys(board).map(key => {
@@ -68,6 +69,7 @@ export default ({ state, cellSelected }) => {
           })}
         </Board>
       )}
+      <Button onClick={switchTeam}>Pass Turn</Button>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 export const Button = styled.div`
+  display: inline-flex;
   height: 30px;
   background-color: ${({ bgColor }) => bgColor || "#2f78b9"};
   border: solid thin;
