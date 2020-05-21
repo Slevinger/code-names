@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "./common/StyledComponents";
 import Chat from "./Chat";
 import TeamScore from "./TeamScore";
+import isEmpty from "lodash/isEmpty";
 
 const Settings = styled.div`
   text-align: center;
@@ -38,7 +39,7 @@ const Input = ({ onValueChange, value, text, editMode, placeholder }) => {
 };
 
 export default ({ state, setClue, chooseTeam, leaveGame }) => {
-  const { whosTurn, player, numberOfWords, clue, teams } = state;
+  const { whosTurn, player, numberOfWords, clue, teams, board } = state;
   const [currentClue, setCurrentClue] = useState("");
   const [noOfWords, setNoOfWords] = useState("");
   const editMode = useMemo(() => {
@@ -46,32 +47,32 @@ export default ({ state, setClue, chooseTeam, leaveGame }) => {
       return player.isHinter && whosTurn === player.teamColor && !numberOfWords;
     }
   }, [whosTurn, player, numberOfWords]);
+  debugger;
   return (
     <Settings>
-      <div>
-        <div className="settings-item">
-          Go <span style={{ color: whosTurn }}>{whosTurn}</span> team
+      <div className="settings-item">
+        Go <span style={{ color: whosTurn }}>{whosTurn}</span> team
+      </div>
+      {board && (
+        <div>
+          <Button
+            onClick={() => {
+              chooseTeam("red", player.isHinter ? "hinter" : "guesser");
+            }}
+            bgColor={"rgba(244,100,100,0.4)"}
+          >
+            Join Red Team
+          </Button>
+          <Button
+            onClick={() => {
+              chooseTeam("blue", player.isHinter ? "hinter" : "guesser");
+            }}
+            bgColor={"rgba(100,100,244,0.4)"}
+          >
+            Join Blue Team
+          </Button>
         </div>
-      </div>
-
-      <div>
-        <Button
-          onClick={() => {
-            chooseTeam("red", player.isHinter ? "hinter" : "guesser");
-          }}
-          bgColor={"rgba(244,100,100,0.4)"}
-        >
-          Join Red Team
-        </Button>
-        <Button
-          onClick={() => {
-            chooseTeam("blue", player.isHinter ? "hinter" : "guesser");
-          }}
-          bgColor={"rgba(100,100,244,0.4)"}
-        >
-          Join Blue Team
-        </Button>
-      </div>
+      )}
 
       {player && (
         <Input
@@ -104,11 +105,13 @@ export default ({ state, setClue, chooseTeam, leaveGame }) => {
           submit
         </Button>
       )}
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        {Object.keys(teams).map(teamColor => (
-          <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
-        ))}
-      </div>
+      {board && (
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {Object.keys(teams).map(teamColor => (
+            <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
+          ))}
+        </div>
+      )}
       <Chat nickname={state.nickname} gameId={state.gameId} />
       <Button
         onClick={() => {
