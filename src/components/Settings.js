@@ -106,21 +106,24 @@ export default ({ state, setClue, chooseTeam, leaveGame, restartBoard }) => {
         </Button>
       )}
       {board && (
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          {Object.keys(teams).map(teamColor => (
-            <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
-          ))}
-        </div>
+        <>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {Object.keys(teams).map(teamColor => (
+              <TeamScore teamColor={teamColor} score={teams[teamColor].score} />
+            ))}
+          </div>
+          <Button
+            onClick={() => {
+              debugger;
+              restartBoard(state.gameId);
+            }}
+          >
+            restart
+          </Button>
+        </>
       )}
       <Chat nickname={state.nickname} gameId={state.gameId} />
-      <Button
-        onClick={() => {
-          debugger;
-          restartBoard(state.gameId);
-        }}
-      >
-        restart
-      </Button>
+
       <Button
         onClick={() => {
           leaveGame();
